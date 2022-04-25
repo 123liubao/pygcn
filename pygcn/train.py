@@ -41,7 +41,7 @@ if args.cuda:
 # Load data
 adj, features, labels, idx_train, idx_val, idx_test = load_data()
 
-# Model and optimizer
+# Model and optimizer，构造GCN，初始化参数，两层GCN
 model = GCN(nfeat=features.shape[1],
             nhid=args.hidden,
             nclass=labels.max().item() + 1,
@@ -63,15 +63,15 @@ def train(epoch):
     t = time.time()
     model.train()
     optimizer.zero_grad()
-    output = model(features, adj)
+    output = model(features, adj)  # 运行模型，输入参数（feature，adj）
     loss_train = F.nll_loss(output[idx_train], labels[idx_train])
-    acc_train = accuracy(output[idx_train], labels[idx_train])
+    acc_train = accuracy(output[idx_train], labels[idx_train])  # 准确度
     loss_train.backward()
     optimizer.step()
 
     if not args.fastmode:
-        # Evaluate validation set performance separately,
-        # deactivates dropout during validation run.
+        # Evaluate validation set performance separately, 单独评估验证集性能
+        # deactivates dropout during validation run. 在验证运行期间停用 dropout
         model.eval()
         output = model(features, adj)
 

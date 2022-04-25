@@ -1,2 +1,7 @@
 
 *.pyc
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/pygcn.iml
+/.idea/vcs.xml

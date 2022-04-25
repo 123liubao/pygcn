@@ -6,9 +6,10 @@ from pygcn.layers import GraphConvolution
 class GCN(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout):
         super(GCN, self).__init__()
-
-        self.gc1 = GraphConvolution(nfeat, nhid)
-        self.gc2 = GraphConvolution(nhid, nclass)
+        # nfeat 初始特征数；nhid 隐藏层特征数
+        self.gc1 = GraphConvolution(nfeat, nhid)  # 构造第一层 GCN
+        # nhid 隐藏层特征数；nclass 最终类别数
+        self.gc2 = GraphConvolution(nhid, nclass)  # 构造第二层 GCN
         self.dropout = dropout
 
     def forward(self, x, adj):
